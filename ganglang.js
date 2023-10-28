@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function error(msg) {
-        output.innerHTML += msg;
+        output.innerHTML += "SMOKE CAUGHT!!!<br>" + msg;
     }
     function loopWords(words) {
         let printstack = "";
@@ -45,9 +45,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         printstack += toPrint;
                     }
                 }
-            } else if (words[1] === "GOT" && words[2] === "GLOCK" && can_convert(words[4])) {
+            } else if (words[1] === "GOT" && words[2] === "GLOCK") {
                 //create int var
-                glocks[words[3]] = parseInt(words[4]);
+                if (can_convert(words[3])) {
+                    glocks[words[3]] = parseInt(words[4]);
+                }
+                else if (glocks[words[4]] in glocks) {
+                    //set var to var
+                    glocks[words[3]] = parseInt(glocks[words[4]]);
+                }
+                
             } 
             else if (words[1] == "SPIN" && words[2] == "DA" && words[3] == "BLOCK" && can_convert(words[4]) && can_convert(words[5])) {
                 //looping
@@ -103,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             else {
-                error("SMOKE CAUGHT: GOOFY WORD AFTER YO!");
+                error("GOOFY WORD AFTER YO!");
             }
         }
 
