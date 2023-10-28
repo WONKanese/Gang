@@ -1,3 +1,5 @@
 # GangLang
-Ganglang website compiler
-#gang gang it be like that
+## Ganglang website compiler
+This is a website for a programming language for gangsters
+
+
