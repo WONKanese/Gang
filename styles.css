@@ -1,0 +1,69 @@
+body {
+    background-color: rgb(37, 37, 53);
+    color: rgb(221, 221, 221);
+    font-family: 'Sometype Mono', sans-serif;
+}
+textarea {
+    background-color: rgb(13, 31, 65);
+    color: rgb(235, 195, 17);
+}
+#codeInput {
+    width: 50%;
+    border: 3px solid gray;
+}
+.title {
+    margin: auto 0;
+    text-align: center;
+}
+.bigtitle {
+    border-bottom: 4px solid rgb(44, 63, 151);
+    margin: 1%;
+}
+.subtitle {
+    display: inline;
+}
+.output-title {
+    margin-left: 46%;
+}
+.code {
+    display: flex;
+    margin-top: 10px;
+    height: 41vh;
+    font-family: serif;
+    font-size: 15px;
+}
+.documentation {
+    border-top: 4px solid rgb(44, 63, 151);
+    margin-top: 2%;
+    text-align: center;
+}
+.output-area {
+    color: white;
+    width: 40%;
+    background-color: rgb(16, 37, 77);
+    margin-left: 2.5%;
+    border: 3px solid gray;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 41vh;
+    font-family: sans-serif;
+}
+#runButton {
+    color: white;
+    background-color: rgb(12, 115, 156);
+    border: none;
+    height: 35px;
+    width: 60px;
+}
+#runButton:hover {
+    background-color: rgb(9, 92, 124);
+}
+
+footer {
+    color: white;
+    position: fixed;
+    bottom: 3px;
+}
+a {
+    color: white;
+}
