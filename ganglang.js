@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     runButton.addEventListener("click", function() {
         // Clear any previous output
-        output.innerHTML = "";
+        output.innerHTML = "Version 0.1.1<br>";
 
         // Get the code from the textarea
         const code = codeInput.value;
