@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     function error(msg) {
-        output.innerHTML += "SMOKE CAUGHT!!! At Line " + line + "<br>" + msg;
+        output.innerHTML += "SMOKE CAUGHT!!! At Hood " + (line + 1) + "<br>" + msg + "<br>";
     }
     function loopWords(words) {
         let printstack = "";
-        if (words.length === 0) {
+        if (words.length === 0 || words[0].length < 1) {
             // Do nothing for empty line
         } else if (words[0][0] === "$") {
             // Do nothing cause comment
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 //printing
                 for (let i = 2; i < words.length; i++) {
                     let toPrint = words[i];
-                    if (toPrint[0] === '$') { //should swap word for variable value?
+                    if (toPrint[0] === '$' && toPrint.slice(1) in glocks) { //should swap word for variable value?
                         toPrint = glocks[toPrint.slice(1)];
                     }
                     toPrint = toPrint.toString();
@@ -51,18 +51,27 @@ document.addEventListener("DOMContentLoaded", function() {
                         printstack += toPrint;
                     }
                 }
-            } else if (words[1] === "GOT" && words[2] === "GLOCK") {
-                //create int var
+            } else if (words[1] === "GOT") {
+                if(words.length != 5) {
+                    error("MAN YOU AIN'T HAVE RIGHT ENOUGH WORDS FOR MAKING DAT");
+                }
+                if (words[2] !== "GLOCK") {
+                    error("MAN YOU AIN'T GOT A GLOCK NEXT TO GOT FOOL");
+                }
                 if (can_convert(words[3])) {
                     error("GOOFY NAME FOR GLOCK " + words[3]);
                 }
 
+                //create int var
                 if (can_convert(words[4])) {
                     glocks[words[3]] = parseInt(words[4]);
                 }
                 else if (words[4] in glocks) {
                     //set var to var
                     glocks[words[3]] = parseInt(glocks[words[4]]);
+                }
+                else {
+                    error("GOOFY FOOL YOU PUT NO VARIABLE OR NUMBA FOR VALUE");
                 }
                 
                 
@@ -76,8 +85,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 startloop = line + 1
                 return;
             } 
-            else if (words[1] == "BIG" && words[2] in glocks) {
-                glocks[words[2]] += isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+            else if (words[1] == "BIG") {
+                if (words.length != 4) {
+                    error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
+                }
+                if(words[2] in glocks){
+                    glocks[words[2]] += isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+                }
+                else {
+                    error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
+                }
             }
             else if (words[1] == "IS" && words[4] == "DA") {
                 let if1 = isVar(words[3]) ? glocks[words[3]] : words[3];
@@ -89,9 +106,34 @@ document.addEventListener("DOMContentLoaded", function() {
                     line += toskip;
                 }
             }
-            else {
-                error("GOOFY WORD AFTER YO!");
+            else if (words[1] == "SPRAY" && words[2] in glocks) {
+                if (words.length != 4) {
+                    error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
+                }
+                if(words[2] in glocks){
+                    glocks[words[2]] *= isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+                }
+                else {
+                    error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
+                }
             }
+            else if (words[1] == "SMOKE" && words[2] in glocks) {
+                if (words.length != 4) {
+                    error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
+                }
+                if(words[2] in glocks){
+                    glocks[words[2]] -= isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+                }
+                else {
+                    error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
+                }
+            }
+            else {
+                error("GOOFY WORD: " + words[1]);
+            }
+        }
+        else {
+            error("GOOFY WORD: " + words[0]);
         }
 
         if (printstack !== "") { //if this line prints to output then output
