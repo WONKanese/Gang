@@ -128,6 +128,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
                 }
             }
+            else if (words[1] == "BANG" && words[2] in glocks) {
+                if (words.length != 4) {
+                    error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
+                }
+                if(words[2] in glocks){
+                    glocks[words[2]] = isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+                }
+                else {
+                    error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
+                }
+            }
             else {
                 error("GOOFY WORD: " + words[1]);
             }
