@@ -13,12 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let startloop = 0
 
     function can_convert(strButInt) {
-        try {
-            parseInt(strButInt);
-            return true;
-        } catch (error) {
-            return false;
-        }
+        const parsedInt = parseInt(strButInt);
+        return !isNaN(parsedInt);
     }
 
     function error(msg) {
@@ -47,13 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else if (words[1] === "GOT" && words[2] === "GLOCK") {
                 //create int var
-                if (can_convert(words[3])) {
+                if (can_convert(words[4])) {
                     glocks[words[3]] = parseInt(words[4]);
                 }
-                else if (glocks[words[4]] in glocks) {
+                else if (words[4] in glocks) {
                     //set var to var
                     glocks[words[3]] = parseInt(glocks[words[4]]);
                 }
+                
                 
             } 
             else if (words[1] == "SPIN" && words[2] == "DA" && words[3] == "BLOCK" && can_convert(words[4]) && can_convert(words[5])) {
@@ -137,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     runButton.addEventListener("click", function() {
         // Clear any previous output
-        output.innerHTML = "Version 0.1.1<br>";
+        output.innerHTML = "";
 
         // Get the code from the textarea
         const code = codeInput.value;
