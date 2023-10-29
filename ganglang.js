@@ -16,9 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const parsedInt = parseInt(strButInt);
         return !isNaN(parsedInt);
     }
-
+    function isVar(str) {
+        if (can_convert(str)) {
+            return false;
+        }
+        else if (str in glocks) {
+            return true;
+        }
+        else {
+            error("GOOFY WORD FOR " + str);
+        }
+    }
     function error(msg) {
-        output.innerHTML += "SMOKE CAUGHT!!!<br>" + msg;
+        output.innerHTML += "SMOKE CAUGHT!!! At Line " + line + "<br>" + msg;
     }
     function loopWords(words) {
         let printstack = "";
@@ -43,6 +53,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else if (words[1] === "GOT" && words[2] === "GLOCK") {
                 //create int var
+                if (can_convert(words[3])) {
+                    error("GOOFY NAME FOR GLOCK " + words[3]);
+                }
+
                 if (can_convert(words[4])) {
                     glocks[words[3]] = parseInt(words[4]);
                 }
@@ -53,10 +67,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 
             } 
-            else if (words[1] == "SPIN" && words[2] == "DA" && words[3] == "BLOCK" && can_convert(words[4]) && can_convert(words[5])) {
+            else if (words[1] == "SPIN" && words[2] == "DA" && words[3] == "BLOCK") {
                 //looping
-                loopamount = parseInt(words[4]) - 1 
-                looplines = parseInt(words[5])
+                loopamount = isVar(words[4]) ? glocks[words[4]] - 1 : parseInt(words[4]) - 1;
+                console.log(loopamount);
+                looplines = isVar(words[5]) ? glocks[words[5]] : parseInt(words[5]);
                 maxloop = looplines
                 startloop = line + 1
                 return;
