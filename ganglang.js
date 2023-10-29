@@ -77,46 +77,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             } 
             else if (words[1] == "BIG" && words[2] in glocks) {
-                if (can_convert(words[3])) {
-                    glocks[words[2]] += parseInt(words[3]);
-                }
-                else if (words[3][0] == "$") {
-                    if (words[3].slice(1) in glocks) {
-                        glocks[words[2]] += glocks[words[3].slice(1)];
-                    }
-                }
+                glocks[words[2]] += isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
             }
             else if (words[1] == "IS" && words[4] == "DA") {
-                let if1 = 0;
-                let if2 = 0;
-                if (words[3][0] == "$") {
-                    if(words[3].slice(1) in glocks) {
-                        if1 = glocks[words[3].slice(1)];
-                    }
-                }
-                else {
-                    if1 = words[3];
-                }
+                let if1 = isVar(words[3]) ? glocks[words[3]] : words[3];
+                let if2 = isVar(words[2]) ? glocks[words[2]] : words[2];
 
-                if (words[2][0] == "$") {
-                    if(words[2].slice(1) in glocks) {
-                        if2 = glocks[words[2].slice(1)];
-                    }
-                }
-                else {
-                    if2 = words[2];
-                }
-
-                let toskip = 0
-                if (can_convert(words[5])) {
-                    toskip = parseInt(words[5]);
-                }
-                else if (words[5][0] == "$") {
-                    if (words[5].slice(1) in glocks) {
-                        toskip = glocks[words[5].slice(1)];
-                    }
-                }
-
+                let toskip = isVar(words[5]) ? glocks[words[5]] : parseInt(words[5]);
+                
                 if (if1 != if2) {
                     line += toskip;
                 }
