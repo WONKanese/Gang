@@ -27,6 +27,29 @@ document.addEventListener("DOMContentLoaded", function() {
             error("GOOFY WORD FOR " + str);
         }
     }
+    function check(check1, check2, amount, type) {
+        let if1 = isVar(check2) ? glocks[check2] : check2;
+        let if2 = isVar(check1) ? glocks[check1] : check1;
+
+        let toskip = isVar(amount) ? glocks[amount] : parseInt(amount);
+        if(toskip == 0) {
+            error("YO FOOL THAT IS NOT GUD ZERO FOOL");
+            return true;
+        }
+        if(type == 1 && if1 == if2) {
+            return true;
+        }
+        else if (type == 2 && if1 > if2) {
+            return true;
+        }
+        else if (type == 3 && if1 < if2) {
+            return true;
+        }
+        else {
+            line += toskip;
+            return false;
+        }
+    }
     function error(msg) {
         output.innerHTML += "SMOKE CAUGHT!!! At Hood " + (line + 1) + "<br>" + msg + "<br>";
     }
@@ -96,15 +119,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
                 }
             }
-            else if (words[1] == "IS" && words[4] == "DA") {
-                let if1 = isVar(words[3]) ? glocks[words[3]] : words[3];
-                let if2 = isVar(words[2]) ? glocks[words[2]] : words[2];
-
-                let toskip = isVar(words[5]) ? glocks[words[5]] : parseInt(words[5]);
-                
-                if (if1 != if2) {
-                    line += toskip;
-                }
+            else if (words[1] == "IS" && words[2] == "IT" && words[5] == "THEN") {
+                check(words[4], words[3], words[6], 1);
+            }
+            else if (words[1] == "IS" && words[2] == "BIG" && words[5] == "THEN") {
+                check(words[4], words[3], words[6], 2);
+            }
+            else if (words[1] == "IS" && words[2] == "LIL" && words[5] == "THEN") {
+                check(words[4], words[3], words[6], 3);
             }
             else if (words[1] == "SPRAY" && words[2] in glocks) {
                 if (words.length != 4) {
@@ -117,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
                 }
             }
-            else if (words[1] == "SMOKE" && words[2] in glocks) {
+            else if (words[1] == "LIL" && words[2] in glocks) {
                 if (words.length != 4) {
                     error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
                 }
@@ -134,6 +156,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 if(words[2] in glocks){
                     glocks[words[2]] = isVar(words[3]) ? glocks[words[3]] : parseInt(words[3]);
+                }
+                else {
+                    error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
+                }
+            }
+            else if (words[1] == "SMOKE" && words[2] in glocks) {
+                if (words.length != 4) {
+                    error("YO FOOL THAT IS NOT ENOUGH WORDS BEFORE YOU GET SMOKED");
+                }
+                if(words[2] in glocks){
+                    glocks[words[2]] = isVar(words[3]) ? Math.sqrt(glocks[words[3]]) : Math.sqrt(parseInt(words[3]));
+                    glocks[words[2]] = Math.round(glocks[words[2]]);
                 }
                 else {
                     error("YO MAN " + words[2] + " ISNT IT FOOL YOU GOOF");
